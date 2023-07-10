@@ -6,13 +6,13 @@ const HostVans = () => {
 	const [vans, setVans] = useState([]);
 
 	useEffect(() => {
-		const fetchHostVens = async () => {
+		const fetchHostVans = async () => {
 			const res = await fetch('/api/host/vans');
 			const data = await res.json();
 			setVans(data.vans);
 		};
 
-		fetchHostVens();
+		fetchHostVans();
 	}, []);
 
 	function renderVanElements(vans) {

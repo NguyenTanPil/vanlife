@@ -15,6 +15,7 @@ import HostVanDetail from './pages/HostVanDetail';
 import HostVanInfo from './pages/HostVanInfo';
 import HostVanPricing from './pages/HostVanPricing';
 import HostVanPhotos from './pages/HostVanPhotos';
+import NotFound from './pages/NotFound';
 
 const router = createBrowserRouter(
 	[
@@ -90,6 +91,10 @@ const router = createBrowserRouter(
 					],
 				},
 			],
+		},
+		{
+			path: '*',
+			element: <NotFound />,
 		},
 	],
 	{

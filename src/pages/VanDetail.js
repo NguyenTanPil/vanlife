@@ -1,30 +1,32 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation, Link } from 'react-router-dom';
 
 const VanDetail = () => {
 	const params = useParams();
-	console.log({ params });
+	const {
+		state: { search, type },
+	} = useLocation();
 
 	const [van, setVan] = useState({});
 
 	useEffect(() => {
-		const fetchVen = async () => {
+		const fetchVan = async () => {
 			const res = await fetch(`/api/vans/${params.id}`);
 			const data = await res.json();
 			setVan(data.vans);
 		};
-		fetchVen();
-	}, []);
+		fetchVan();
+	}, [params.id]);
 
 	return (
 		<div className='van-detail-container'>
-			{/* <Link
-				to={`..${search}`}
+			<Link
+				to={`..?${search}`}
 				relative='path'
 				className='back-button'
 			>
 				&larr; <span>Back to {type} vans</span>
-			</Link> */}
+			</Link>
 
 			<div className='van-detail'>
 				<img
