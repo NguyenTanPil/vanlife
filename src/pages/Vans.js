@@ -1,32 +1,17 @@
 import { isEqual } from 'lodash';
 import React, { useEffect, useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useLoaderData, useSearchParams } from 'react-router-dom';
 import { fetchVans } from '../api';
 
+export const vansLoader = () => {
+	return fetchVans();
+};
+
 const Vans = () => {
-	const [vans, setVans] = useState([]);
-	const [isLoading, setLoading] = useState(false);
 	const [searchParams, setSearchParams] = useSearchParams();
-	const [error, setError] = useState('');
+	const vans = useLoaderData();
 
 	const typeFilter = searchParams.get('type');
-
-	useEffect(() => {
-		const loadVans = async () => {
-			setLoading(true);
-			try {
-				const data = await fetchVans();
-				console.log({ data });
-				setVans(data);
-			} catch (error) {
-				setError(error._bodyText);
-			} finally {
-				setLoading(false);
-			}
-		};
-
-		loadVans();
-	}, []);
 
 	const displayVans = typeFilter ? vans.filter((van) => isEqual(van.type, typeFilter)) : vans;
 
@@ -54,14 +39,6 @@ const Vans = () => {
 			</Link>
 		</div>
 	));
-
-	if (error) {
-		return <h2>{error}</h2>;
-	}
-
-	if (isLoading) {
-		return <h2>Loading...</h2>;
-	}
 
 	return (
 		<div className='van-list-container'>

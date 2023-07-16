@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import loginImg from '../assets/images/avatar-icon.png';
 
 export default function Header() {
 	const activeStyles = {
@@ -44,7 +45,7 @@ export default function Header() {
 					className='login-link'
 				>
 					<img
-						src='../assets/images/avatar-icon.png'
+						src={loginImg}
 						className='login-icon'
 						alt=''
 					/>

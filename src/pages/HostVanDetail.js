@@ -1,27 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { Link, NavLink, Outlet, useParams } from 'react-router-dom';
+import React from 'react';
+import { Link, NavLink, Outlet, useLoaderData } from 'react-router-dom';
+
+export const hostVanDetailLoader = async ({ params }) => {
+	const res = await fetch(`/api/host/vans/${params.id}`);
+	const data = await res.json();
+	return data.vans;
+};
 
 const HostVanDetail = () => {
-	const params = useParams();
-
-	const [currentVan, setCurrentVan] = useState(null);
+	const currentVan = useLoaderData();
 
 	const activeStyles = {
 		fontWeight: 'bold',
 		textDecoration: 'underline',
 		color: '#161616',
 	};
-
-	useEffect(() => {
-		const fetchHostVan = async () => {
-			const res = await fetch(`/api/host/vans/${params.id}`);
-			const data = await res.json();
-			console.log({ data });
-			setCurrentVan(data.vans);
-		};
-
-		fetchHostVan();
-	}, [params.id]);
 
 	return (
 		<>
